@@ -1,0 +1,31 @@
+<form [formGroup]="rolForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 100%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codrol; else elseTemplate">
+            <h3>REGISTRAR NUEVO ROL</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR ROL</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Nombre:</mat-label>
+            <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Tipo de rol:</mat-label>
+            <mat-select matNativeControl formControlName="tiporol" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('tiporol')}}" required>
+                <mat-option value="" selected disabled hidden></mat-option>
+                <!-- <mat-option value="Usuarios">Usuarios</mat-option>
+          <mat-option value="Personal">Personal</mat-option> -->
+                <mat-option value="Equipos">Equipos</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Descripcion:</mat-label>
+            <textarea matInput placeholder="descripcion del rol" formControlName="descripcion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('descripcion')}}"></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!rolForm.valid">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

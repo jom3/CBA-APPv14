@@ -1,0 +1,62 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto" >
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Archivos</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Ver archivo</li>
+  <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+</ol>
+<div fxLayout="column" fxLayoutAlign="center center" style="width: 100%; margin-top: 15px;">
+    <mat-card class="card" *ngFor="let ar of archivo">
+        <mat-card-header fxLayoutAlign="center center">
+            <mat-card-title>
+                <h4 style="color:black">
+                    <strong>
+                PROYECTO:
+              </strong>
+                </h4>
+                <h3 fxLayoutAlign="center center">
+                    {{ ar.titulo | uppercase}}
+                </h3>
+            </mat-card-title>
+            <mat-card-subtitle>
+                <h4 style="color:black">
+                    <strong>
+                FECHA DE SUBIDA:
+              </strong>
+                </h4>
+                <h3>{{ar.fsubida | date:'mediumDate'}}</h3>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <h4 style="color:black">
+                <strong>
+                  NOMBRE:
+                </strong>
+            </h4>
+            <h3 fxLayoutAlign="center center">
+                {{ ar.nombre | uppercase }}
+            </h3>
+            <h4 style="color:black">
+                <strong>
+                DESCRIPCION:
+              </strong>
+            </h4>
+            <h3 fxLayoutAlign="center center">
+                {{ ar.descripcion}}
+            </h3>
+            <mat-divider>
+            </mat-divider>
+            <div style="width: 100%;" fxLayout="column" fxLayoutAlign="center center">
+                <h4 style="color:black">
+                    <strong>
+                  BAJAR ARCHIVO:
+                </strong>
+                </h4>
+                <button mat-raised-button color="accent" (click)="bajar(ar.codarc)">Descargar</button>
+            </div>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+            <button mat-button (click)="cancelar()">CERRAR</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

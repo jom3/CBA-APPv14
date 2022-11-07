@@ -1,0 +1,54 @@
+<div class="container mt-5 fs-6 bgg">
+    <h1 class="text-center">ADMINISTRAR INSTITUCIONES</h1>
+    <mat-form-field>
+        <input matInput name="filtroInstituciones" placeholder="buscar..." style="width: 300px;" [(ngModel)]="filtroInstituciones">
+    </mat-form-field>
+    <button mat-raised-button *ngIf="rol=='Administrador'" color="primary" class="float-right" (click)="registrarNuevo()">
+      Añadir
+    <mat-icon>add</mat-icon>
+    </button>
+    <table class="table table-striped text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th scope="col" fxHide.xs>#</th>
+                <th scope="col">Nombre de la institucion</th>
+                <th scope="col" fxHide.sm fxHide.xs>Correo electronico</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ver mas</th>
+                <th scope="col" *ngIf="rol=='Administrador'">Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ins of instituciones | institucionesFiltro:filtroInstituciones | paginate: { itemsPerPage: 4, currentPage: p }; index as i">
+                <th scope="row" fxHide.xs>{{ i + 1 }}</th>
+                <td>{{ ins.nombre}}</td>
+                <td fxHide.sm fxHide.xs>{{ ins.email }}</td>
+                <td>{{ ins.telefono }}</td>
+                <td>
+                    <div *ngIf="ins.estado!=0; else elseTemplate">
+                        <img src="./assets/imagenes/act.png" alt="none">
+                    </div>
+                    <ng-template #elseTemplate>
+                        <img src="./assets/imagenes/inac.png" alt="none">
+                    </ng-template>
+                </td>
+                <td>
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/eye_black.png" alt="" [routerLink]="['/instituciones/verInstitucion', ins.codi]" routerLinkActive="router-link-active"></a>
+                </td>
+                <td *ngIf="rol=='Administrador'">
+                    <ng-container *ngIf="ins.estado==1; else modins">
+                        <a href="javascript:void(0)"><img src="./assets/imagenes/edit_black.png" alt="" [routerLink]="['/instituciones/modificarInstitucion', ins.codi]" routerLinkActive="router-link-active"></a>
+                    </ng-container>
+                    <ng-template #modins>
+                        <a><img src="./assets/imagenes/edit_black.png" alt=""></a>
+                    </ng-template>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayoutAlign="center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

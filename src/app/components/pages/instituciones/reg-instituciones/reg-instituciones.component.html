@@ -1,0 +1,52 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="cancelar()">Instituciones</a></li>
+    <ng-container *ngIf="codi; else elsecodi">
+        <li class="breadcrumb-item active" aria-current="page">Modificar institución</li>
+    </ng-container>
+    <ng-template #elsecodi>
+        <li class="breadcrumb-item active" aria-current="page">Registrar institución</li>
+    </ng-template>
+</ol>
+<form [formGroup]="instForm" fxLayout="column" fxLayoutAlign="center center" class="formulario">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codi; else elseTemplate">
+            <h3>REGISTRAR NUEVA INSTITUCION</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR INSTITUCION</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Nombre de la institución:</mat-label>
+            <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms" *ngIf="!codi">
+            <mat-label>Tipo de institución:</mat-label>
+            <mat-select matNativeControl formControlName="tipo" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('tipo')}}" required>
+                <mat-option value="Financiador">Financiador</mat-option>
+                <mat-option value="Proveedor">Proveedor</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Descripcion de la institución:</mat-label>
+            <textarea matInput placeholder="descripcion de la institución" formControlName="descripcion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('descripcion')}}" required></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Direccion de la institución:</mat-label>
+            <input matInput placeholder="" formControlName="direccion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('direccion')}}" required>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="5px" class="forms">
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Email:</mat-label>
+                <input matInput formControlName="email" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('email')}}" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="40">
+                <mat-label>Telefono:</mat-label>
+                <input matInput placeholder="" formControlName="telefono" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('telefono')}}" required>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!instForm.valid">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

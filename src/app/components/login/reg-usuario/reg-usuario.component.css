@@ -1,0 +1,19 @@
+.forms {
+    width: 400px;
+}
+
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+    width: 430px;
+    height: 530px;
+}
+
+.container{
+    width: 100%;
+    margin: 30px auto;
+}
+.form__title{
+    font-size: 1.2rem;
+    font-weight: 500;
+}

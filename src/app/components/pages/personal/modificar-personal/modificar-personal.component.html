@@ -1,0 +1,41 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Personal</a></li>
+  <ng-container *ngIf="!codper; else elseper">
+    <li class="breadcrumb-item active" aria-current="page">Registrar personal</li>
+  </ng-container>
+  <ng-template #elseper>
+    <li class="breadcrumb-item active" aria-current="page">Modificar personal</li>
+  </ng-template>
+</ol>
+<div fxLayout="column" fxLayoutAlign="center center" class="mod__personal">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+      <div *ngFor="let pel of personal" class="mod__container">
+          <div class="mod__picture">
+            <img mat-card-image [src]="'http://localhost:3000/api/imagenes/' + pel.codper " onerror="this.src='assets/imagenes/no-image.png'" alt="asd" class="img__personal">
+          </div>
+          <div fxLayoutAlign="center center" fxLayout="column" class="text__container">
+            <mat-card-title class="text__title">{{ pel.nombre | titlecase }} {{ pel.ap | titlecase }} {{ pel.am | titlecase }}</mat-card-title>
+            <mat-card-subtitle class="text__subtitle">--> {{pel.nomrol | uppercase}} <--</mat-card-subtitle>
+          </div>
+      </div>
+        <form action="" [formGroup]="rolForm">
+            <h4>Seleccionar el rol con el cual se quiere cambiar:</h4>
+            <div fxLayout="row" fxLayoutGap="20px">
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Seleccionar...</mat-label>
+                        <mat-select formControlName="codrol" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codrol')}}">
+                            <mat-option *ngFor="let role of rolesg" value="{{role.codrol}}">
+                                {{role.nombre | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutGap="10px">
+                    <button mat-raised-button color="primary" [disabled]="!rolForm.valid" (click)="guardar()">Guardar</button>
+                    <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

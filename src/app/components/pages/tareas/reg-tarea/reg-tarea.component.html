@@ -1,0 +1,79 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Tareas</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+    <ng-container *ngIf="codt; else elsecodt">
+        <li class="breadcrumb-item active" aria-current="page">Modificar Tarea</li>
+    </ng-container>
+    <ng-template #elsecodt>
+        <li class="breadcrumb-item active" aria-current="page">Nueva Tarea</li>
+    </ng-template>
+</ol>
+<form [formGroup]="tsForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codt; else elseTemplate">
+            <h3>REGISTRAR NUEVA TAREA</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR TAREA</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms" [hidden]="status!=4">
+            <mat-label>Miembro del equipo:</mat-label>
+            <mat-select formControlName="codmiem" name="mm" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codmiem')}}" required>
+                <mat-option *ngFor="let mm of miembros" [value]="mm.codmiem">
+                    {{mm.nombre | titlecase}} {{mm.ap | titlecase}} {{mm.am | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms" [hidden]="status!=4">
+            <mat-label>Tarea predecesora:</mat-label>
+            <mat-select formControlName="predecesor">
+                <mat-option *ngFor="let tl of ltareas" [value]="tl.codt">
+                    {{tl.nomta}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms" [hidden]="status!=4">
+            <mat-label>Nombre de la tarea:</mat-label>
+            <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms" [hidden]="status!=4">
+            <mat-label>Egreso</mat-label>
+            <mat-select formControlName="codegre" name="mm" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codegre')}}">
+                <mat-option *ngFor="let eg of egresos" [value]="eg.codegre">
+                    {{eg.cegreso}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="!codt; else codta">
+            <mat-form-field appearance="fill" class="forms">
+                <mat-label>Porcentaje de avance:</mat-label>
+                <input matInput type="number" formControlName="avance" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('avance')}}" [(ngModel)]="valor" max="{{max}}" min="{{min}}">
+                <mat-hint>Ingresar un valor valido entre {{min}} y {{max}}</mat-hint>
+            </mat-form-field>
+            <div class="forms">
+                <div [style.width]="valor + '%'" class="progress-bar" role="progressbar" aria-valuenow="valor" aria-valuemin="0" aria-valuemax="100">{{valor}}%</div>
+            </div>
+        </ng-container>
+        <ng-template #codta>
+            <mat-form-field appearance="fill" class="forms">
+                <mat-label>Porcentaje de avance:</mat-label>
+                <input matInput type="number" formControlName="avance" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('avance')}}" [(ngModel)]="valor" max="{{max}}" min="{{min}}">
+                <mat-hint>Ingresar un valor valido entre {{min}} y {{max}}</mat-hint>
+            </mat-form-field>
+            <div class="forms">
+                <div [style.width]="valor + '%'" class="progress-bar" role="progressbar" aria-valuenow="valor" aria-valuemin="0" aria-valuemax="100">{{valor}}%</div>
+            </div>
+
+        </ng-template>
+
+        <mat-form-field appearance="fill" class="forms" [hidden]="status!=4">
+            <mat-label>Descripcion de la tarea:</mat-label>
+            <textarea matInput placeholder="descripcion del proveedor" formControlName="descripcion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('descripcion')}}"></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px" class="mt-2">
+            <button mat-raised-button color="primary" [disabled]="!tsForm.valid" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

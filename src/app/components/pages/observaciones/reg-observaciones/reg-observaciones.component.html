@@ -1,0 +1,37 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto" >
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Observaciones</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+  <ng-container *ngIf="codo; else elsecodo">
+    <li class="breadcrumb-item active" aria-current="page">Modificar observación</li>
+  </ng-container>
+  <ng-template #elsecodo>
+    <li class="breadcrumb-item active" aria-current="page">Nueva observación</li>
+  </ng-template>
+</ol>
+<form [formGroup]="osForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codo; else titulo">
+            <h1>Registrar Observacion</h1>
+        </ng-container>
+        <ng-template #titulo>
+            <h1>Modificar Observacion</h1>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms" [hidden]="codo">
+            <mat-label>Miembro del equipo a observar:</mat-label>
+            <mat-select formControlName="codmiem" name="mm" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codmiem')}}" required>
+                <mat-option *ngFor="let mm of miembros" [value]="mm.codmiem">
+                    {{mm.nombre | titlecase}} {{mm.ap | titlecase}} {{mm.am | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Razon de la observacion:</mat-label>
+            <textarea matInput formControlName="razon" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('razon')}}"></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

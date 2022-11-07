@@ -1,0 +1,31 @@
+.forms {
+    width: 400px;
+}
+
+.tama {
+    width: 400px;
+}
+
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+    padding-bottom: 20px;
+}
+
+.breadcrumb {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    width: 250px;
+}
+
+.tit {
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .breadcrumb {
+        display: none;
+    }
+    .bgg{
+        margin-top: 50px;
+    }
+}

@@ -1,0 +1,9 @@
+.card {
+    width: 500px;
+    /* background:  */
+    background: linear-gradient(to right, rgb(162, 203, 250), rgb(172, 170, 170));
+}
+.breadcrumb{
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+  width: 500px;
+}

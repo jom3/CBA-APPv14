@@ -1,0 +1,77 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="width: 100%; margin-top: 15px;">
+    <mat-card class="card" *ngFor="let prov of proveedores">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>
+                <h2>{{prov.nombre | uppercase}}</h2>
+            </mat-card-title>
+            <mat-card-subtitle>{{prov.email}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <h4 style="color:black">
+                <strong>
+              DESCRIPCION:
+            </strong>
+            </h4>
+            <h3 fxLayoutAlign="center center">
+                {{prov.descripcion}}
+            </h3>
+            <h4 style="color:black">
+                <strong>
+              DIRECCION:
+            </strong>
+            </h4>
+            <h3 fxLayoutAlign="center center">
+                {{prov.direccion}}
+            </h3>
+            <h4 style="color:black">
+                <strong>
+              TELEFONO:
+            </strong>
+            </h4>
+            <h3 fxLayoutAlign="center center">
+                {{prov.telefono}}
+            </h3>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+            <ng-container *ngIf="prov.estado==1; else modelres">
+                <button mat-button (click)="eliminar(eliProv,prov.codprov,prov.nombre,prov.descripcion,prov.estado)">ELIMINAR</button>
+            </ng-container>
+            <ng-template #modelres>
+                <button mat-button (click)="restaurar(eliProv,prov.codprov,prov.nombre,prov.descripcion,prov.estado)">RESTAURAR</button>
+            </ng-template>
+
+            <button mat-button (click)="cancelar()">CANCELAR</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<ng-template #eliProv>
+    <mat-card class="example-card" style="background: rgba(47, 74, 136, 0.8); color: rgb(255, 255, 255);" *ngFor="let da of datos">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <ng-container *ngIf="da.estado==1; else borrRec">
+                <mat-card-subtitle>Estas seguro de eliminar?</mat-card-subtitle>
+            </ng-container>
+            <ng-template #borrRec>
+                <mat-card-subtitle>Estas seguro de recuperar?</mat-card-subtitle>
+            </ng-template>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+            <p>" {{da.nombre | uppercase}} "</p>
+            <p>{{da.descripcion}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+                <ng-container *ngIf="da.estado==1; else delres">
+                    <button mat-button (click)="del(da.codprov)">confirmar</button>
+                </ng-container>
+                <ng-template #delres>
+                    <button mat-button (click)="res(da.codprov)">confirmar</button>
+                </ng-template>
+
+                <button mat-button (click)="cancelar()">cancelar</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</ng-template>

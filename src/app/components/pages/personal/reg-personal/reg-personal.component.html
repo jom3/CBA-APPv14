@@ -1,0 +1,85 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Personal</a></li>
+  <ng-container *ngIf="!codper; else elseper">
+    <li class="breadcrumb-item active" aria-current="page">Registrar personal</li>
+  </ng-container>
+  <ng-template #elseper>
+    <li class="breadcrumb-item active" aria-current="page">Modificar personal</li>
+  </ng-template>
+</ol>
+<form [formGroup]="pelForm" fxLayout="column" [style.fontSize.px]="12.5" fxLayoutAlign="center center" class="reg__personal" enctype="multipart/form-data">
+    <div class="bgg" fxLayoutAlign="center center" fxLayout="column" style="width: 450px; height: 550px;">
+        <h3>REGISTRAR NUEVO PERSONAL</h3>
+        <div>
+            <mat-form-field appearance="fill" class="forms">
+                <mat-label>Nombre:</mat-label>
+                <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <mat-form-field appearance="fill">
+                    <mat-label>Apellido paterno:</mat-label>
+                    <input matInput placeholder="perez" formControlName="ap" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('ap')}}" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Apellido materno:</mat-label>
+                    <input matInput placeholder="" formControlName="am" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('am')}}" required>
+                </mat-form-field>
+            </div>
+            <div class="mb-3 forms">
+                <input class="form-control" type="file" name="foto" (change)="selectImage($event)">
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px" class="forms">
+                <mat-form-field appearance="fill" fxFlex="40">
+                    <mat-label>Rol del usuario:</mat-label>
+                    <mat-select matNativeControl formControlName="codrol" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codrol')}}" required>
+                        <mat-option value="{{rol.codrol}}" *ngFor="let rol of roles">{{rol.nombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fnac" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('fnac')}}" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <mat-form-field appearance="fill">
+                    <mat-label>Ci:</mat-label>
+                    <input matInput placeholder="" formControlName="ci" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('ci')}}" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Ciudad</mat-label>
+                    <mat-select matNativeControl formControlName="expedido" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('expedido')}}" required>
+                        <mat-option value="Beni">Beni</mat-option>
+                        <mat-option value="Chuquisaca">Chuquisaca</mat-option>
+                        <mat-option value="Cochabamba">Cochabamba</mat-option>
+                        <mat-option value="La Paz">La Paz</mat-option>
+                        <mat-option value="Oruro">Oruro</mat-option>
+                        <mat-option value="Pando">Pando</mat-option>
+                        <mat-option value="Potosi">Potosi</mat-option>
+                        <mat-option value="Santa Cruz">Santa Cruz</mat-option>
+                        <mat-option value="Tarija">Tarija</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="fill" class="forms">
+                <mat-label>Direccion:</mat-label>
+                <input matInput placeholder="" formControlName="direccion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('direccion')}}" required>
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="5px">
+                <mat-form-field appearance="fill" style="width: 300px;">
+                    <mat-label>Email:</mat-label>
+                    <input matInput formControlName="email" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('email')}}" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 100px;">
+                    <mat-label>Telefono:</mat-label>
+                    <input matInput placeholder="" formControlName="telefono" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('telefono')}}" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" [disabled]="!pelForm.valid" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

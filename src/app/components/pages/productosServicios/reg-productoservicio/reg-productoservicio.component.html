@@ -1,0 +1,71 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="cancelar()">Productos o servicios</a></li>
+  <ng-container *ngIf="codps; else elsecodi">
+    <li class="breadcrumb-item active" aria-current="page">Modificar producto o servicio</li>
+  </ng-container>
+  <ng-template #elsecodi>
+    <li class="breadcrumb-item active" aria-current="page">Nuevo producto o servicio</li>
+  </ng-template>
+</ol>
+<form [formGroup]="psForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 85%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codps; else elseTemplate">
+            <h3>REGISTRAR NUEVO PRODUCTO O SERVICIO</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR PRODUCTO O SERVICIO</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Nombre del producto:</mat-label>
+            <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="5px" class="forms">
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Proovedor</mat-label>
+                <mat-select formControlName="codprov" name="prov">
+                    <mat-option *ngFor="let prov of proveedores" [value]="prov.codprov">
+                        {{prov.nombre | titlecase}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="30">
+                <mat-label>Tipo:</mat-label>
+                <mat-select matNativeControl formControlName="tipops" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('tipops')}}" required>
+                    <mat-option value="Producto">Producto</mat-option>
+                    <mat-option value="Servicio">Servicio</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Descripcion del producto:</mat-label>
+            <textarea matInput formControlName="descripcion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('descripcion')}}" required></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="5px" class="forms">
+            <mat-form-field appearance="fill">
+                <mat-label>Cantidad:</mat-label>
+                <input type="number" matInput formControlName="cantidad" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('cantidad')}}" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Tipo de cantidad:</mat-label>
+                <input matInput formControlName="tipocantidad" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('tipocantidad')}}" required>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5px" class="forms">
+            <mat-form-field appearance="fill">
+                <mat-label>Precio:</mat-label>
+                <input type="number" matInput formControlName="precio_unitario" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('precio_unitario')}}" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Divisa:</mat-label>
+                <mat-select matNativeControl formControlName="divisa" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('tipops')}}" required>
+                    <mat-option value="Bolivianos">Bolivianos</mat-option>
+                    <mat-option value="Dolares">Dolares</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!psForm.valid">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

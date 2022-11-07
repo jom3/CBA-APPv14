@@ -1,0 +1,49 @@
+.card {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+.bgg {
+    width: 350px;
+    padding: 10px;
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.459), rgba(187, 187, 187, 0.356));
+}
+.breadcrumb{
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+  width: 250px;
+}
+.mod__personal{
+  margin: 50px auto;
+}
+
+.img__personal{
+  width: 100%;
+  size-adjust: cover;
+}
+.mod__container{
+  width: 100%;
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.text__container{
+  margin: 20px auto;
+}
+.text__title{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.text__subtitle{
+  margin-top: 10px;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: red;
+}
+@media only screen and (max-width: 900px) {
+  .breadcrumb{
+    display: none;
+  }
+}

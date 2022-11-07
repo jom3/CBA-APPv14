@@ -1,0 +1,33 @@
+.contain {
+    width: 90%;
+    height: 80%;
+    border: 2px solid rgba(114, 114, 114, 0.5);
+    border-radius: 20px;
+}
+
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+}
+
+#tit1 {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: rgb(255, 255, 255);
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+.minicont {
+    width: 90%;
+}
+
+.imgperfil {
+    width: 150px;
+    height: 150px;
+    border: 5px solid rgb(175, 175, 112);
+    border-radius: 10px;
+}

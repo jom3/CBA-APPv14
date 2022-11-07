@@ -1,0 +1,12 @@
+<div *ngFor="let pro of proyectos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <div fxLayoutAlign="center center">
+        <h1>{{pro.titulo | uppercase}}</h1>
+    </div>
+    <div fxLayoutAlign="center center">
+        <h4 style="color:rgb(61, 29, 29)">Estas seguro de confirmar este proyecto?</h4>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <button mat-raised-button mat-dialog-close color="primary" (click)="completar(pro.codpro)">Eliminar</button>
+        <button mat-raised-button mat-dialog-close color="warn">Cancelar</button>
+    </div>
+</div>

@@ -1,0 +1,257 @@
+<div class="container mt-5 fs-6 bgg">
+    <h1 class="text-center">ADMINISTRAR PROYECTOS</h1>
+    <div class="d-flex justify-content-between">
+      <mat-form-field>
+        <input matInput name="filtroProyectos" placeholder="buscar..." style="width: 300px" [(ngModel)]="filtroProyectos">
+      </mat-form-field>
+      <!-- <mat-radio-group aria-label="Select an option" class=" mt-4" fxLayoutGap="15px">
+        <mat-radio-button name="myRadios" (change)="onItemChange($event)" value="1" checked>Todos</mat-radio-button>
+        <mat-radio-button name="myRadios" (change)="onItemChange($event)" value="2">Activos</mat-radio-button>
+        <mat-radio-button name="myRadios" (change)="onItemChange($event)" value="3">Inactivos</mat-radio-button>
+      </mat-radio-group> -->
+      <button mat-raised-button color="primary" style="height: 40px" (click)="registrarNuevo()" [hidden]="!ls.islogged() || (codper || rol=='Usuario')">
+    Añadir
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+    <table class="table text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th scope="col" fxHide.sm fxHide.xs>#</th>
+                <th scope="col">Nombre del proyecto</th>
+                <th scope="col" fxHide.sm fxHide.xs>Miembro</th>
+                <th scope="col" fxHide.sm fxHide.xs>Tipo de proyecto</th>
+                <th scope="col">Estado</th>
+                <th scope="col" [hidden]="!ls.islogged() || (!codper && rol=='Usuario')">Ver mas</th>
+                <th scope="col" [hidden]="!ls.islogged() || (codper || rol!='Administrador')">Modificar</th>
+                <th scope="col" [hidden]="!ls.islogged() || (codper || rol!='Administrador')">Opciones</th>
+                <th scope="col" [hidden]="!ls.islogged() && !codper">Postular</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let proy of proyectos | proyectosFiltro:filtroProyectos | paginate: { itemsPerPage: 4, currentPage: p }; index as i">
+                <th scope="row" fxHide.sm fxHide.xs>{{ i + 1 }}</th>
+                <td>{{ proy.titulo | uppercase}}</td>
+                <td fxHide.sm fxHide.xs>{{ proy.nombre | titlecase }} {{ proy.ap | titlecase }} {{ proy.am | titlecase }}</td>
+                <td fxHide.sm fxHide.xs>{{ proy.caracter }}</td>
+                <td>
+                    <ng-container *ngIf="proy.estado==5; else ejecucion">
+                        <img src="./assets/imagenes/ejecucion.png " alt="none " matTooltip="En ejecución">
+                    </ng-container>
+                    <ng-template #ejecucion>
+                        <ng-container *ngIf="proy.estado==4; else planificacion">
+                          <img src="./assets/imagenes/editable.png " alt="none " matTooltip="En planificación">
+                        </ng-container>
+                        <ng-template #planificacion>
+                          <ng-container *ngIf="proy.estado==3; else completado">
+                            <img src="./assets/imagenes/bloqueo.png " alt="none " matTooltip="Completado">
+                          </ng-container>
+                          <ng-template #completado>
+                            <ng-container *ngIf="proy.estado==2; else pendiente">
+                              <img src="./assets/imagenes/espera.png " alt="none " matTooltip="En espera">
+                            </ng-container>
+                            <ng-template #pendiente>
+                              <ng-container *ngIf="proy.estado==1; else activo">
+                                <img src="./assets/imagenes/act.png " alt="none " matTooltip="Activo">
+                              </ng-container>
+                              <ng-template #activo>
+                                <ng-container *ngIf="proy.estado==0; else inactivo">
+                                  <img src="./assets/imagenes/inac.png " alt="none " matTooltip="Inactivo">
+                                </ng-container>
+                                <ng-template #inactivo>
+                                  <img src="./assets/imagenes/inac.png " alt="none ">
+                                </ng-template>
+                              </ng-template>
+                            </ng-template>
+                          </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </td>
+                <td [hidden]="!ls.islogged() || (!codper && rol=='Usuario')">
+                  <ng-container *ngIf="proy.estado!=0; else elseTemplate213">
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/eye_black.png" alt="" [routerLink]="['/proyectos/verProyecto', proy.codpro]" routerLinkActive="router-link-active"></a>
+                  </ng-container>
+                  <ng-template #elseTemplate213>
+                    <a><img src="./assets/imagenes/eye_black.png" alt=""></a>
+                  </ng-template>
+                </td>
+                <td [hidden]="!ls.islogged() || (codper || rol!='Administrador')">
+                    <ng-container *ngIf="proy.estado==0 || proy.estado==1 || proy.estado==2; else modTemplate">
+                      <a href="javascript:void(0)"><img src="./assets/imagenes/edit_black.png" alt="" [routerLink]="['/proyectos/modificarProyecto', proy.codpro]" routerLinkActive="router-link-active"></a>
+                    </ng-container>
+                    <ng-template #modTemplate>
+                      <a><img src="./assets/imagenes/edit_white.png" alt=""></a>
+                    </ng-template>
+                </td>
+                <td [hidden]="!ls.islogged() || (codper || rol!='Administrador')">
+                    <ng-container *ngIf="proy.estado==2; else opcionTemplate">
+                        <a href="javascript:void(0)"><img src="./assets/imagenes/option.png" alt="" (click)="revision(check,proy.codpro,proy.titulo,proy.estado)"></a>
+                    </ng-container>
+                    <ng-template #opcionTemplate>
+                      <ng-container *ngIf="proy.estado==0 || proy.estado==1 || proy.estado==2; else desa">
+                        <a href="javascript:void(0)"><img src="./assets/imagenes/option.png" alt="" (click)="opciones(opt,proy.codpro,proy.titulo,proy.estado)"></a>
+                      </ng-container>
+                      <ng-template #desa>
+                        <a><img src="./assets/imagenes/option_white.png" alt=""></a>
+                      </ng-template>
+                    </ng-template>
+                </td>
+                    <td [hidden]="!ls.islogged() && !codper" >
+                      <ng-container *ngIf="(proy.estado==0 || proy.estado==1 || proy.estado==2 || proy.estado==3 || proy.estado==4); else elseTemplate">
+                        <a><img src="./assets/imagenes/postular.png" alt=""></a>
+                      </ng-container>
+                      <ng-template #elseTemplate>
+                        <a href="javascript:void(0)" ><img src="./assets/imagenes/postular_black.png" alt="" (click)="postular(proy.codpro)" ></a>
+                      </ng-template>
+                    </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayoutAlign="center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+<ng-template #opt>
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" class="opt">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+            <h2>{{pro.titulo | uppercase}}</h2>
+            <h3 style="color: rgba(255, 0, 0, 0.733)">
+                <strong>
+        Opciones
+      </strong>
+            </h3>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <ng-container *ngIf="pro.estado==3 || pro.estado==0; else eliTemplate">
+                    <h3>Eliminar</h3>
+                    <a><img src="./assets/imagenes/del_black.png" alt=""></a>
+                </ng-container>
+                <ng-template #eliTemplate>
+                    <h3>Eliminar</h3>
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/del_black.png" alt="" (click)="eliminar(eli,pro.codpro,pro.titulo,pro.estado)"></a>
+                </ng-template>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <ng-container *ngIf="pro.estado==0 || pro.estado==3; else resTemplate">
+                    <h3>Restaurar</h3>
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/atras.png" alt="" (click)="restaurar(res,pro.codpro,pro.titulo,pro.estado)"></a>
+                </ng-container>
+                <ng-template #resTemplate>
+                    <h3>Restaurar</h3>
+                    <a><img src="./assets/imagenes/atras.png" alt=""></a>
+                </ng-template>
+            </div>
+            <!-- <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <ng-container *ngIf="pro.estado!=3; else comTemplate">
+                    <h3>Completar</h3>
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/completado.png" alt="" (click)="completar(com,pro.codpro,pro.titulo,pro.estado)"></a>
+                </ng-container>
+                <ng-template #comTemplate>
+                    <h3>Completar</h3>
+                    <a><img src="./assets/imagenes/completado.png" alt=""></a>
+                </ng-template>
+            </div> -->
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #check>
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" class="opt">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+            <h2>{{pro.titulo | uppercase}}</h2>
+            <h3 style="color: rgba(255, 0, 0, 0.733)">
+                <strong>
+      Opciones
+    </strong>
+            </h3>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <h3>Aceptar</h3>
+                <a href="javascript:void(0)"><img src="./assets/imagenes/act.png" alt="" (click)="aceptar(acept,pro.codpro,pro.titulo,pro.estado)"></a>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <h3>Rechazar</h3>
+                <a href="javascript:void(0)"><img src="./assets/imagenes/inac.png" alt="" (click)="rechazar(recha,pro.codpro,pro.titulo,pro.estado)"></a>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #eli let-c="close" let-d="dismiss">
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="opt">
+        <div fxLayoutAlign="center center">
+            <h1>{{pro.titulo | uppercase}}</h1>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayoutAlign="center center">
+            <h4 style="color:rgb(61, 29, 29)">Estas seguro de eliminar este proyecto?</h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="del(pro.codpro)">Eliminar</button>
+            <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #res let-c="close" let-d="dismiss">
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="opt">
+        <div fxLayoutAlign="center center">
+            <h1>{{pro.titulo | uppercase}}</h1>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayoutAlign="center center">
+            <h4 style="color:rgb(61, 29, 29)">Esta seguro de restaurar este proyecto?</h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="rest(pro.codpro)">Eliminar</button>
+            <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #com let-c="close" let-d="dismiss">
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="opt">
+        <div fxLayoutAlign="center center">
+            <h1>{{pro.titulo | uppercase}}</h1>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayoutAlign="center center">
+            <h4 style="color:rgb(61, 29, 29)">Estas seguro de completar este; proyecto?</h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="comp(pro.codpro)">Eliminar</button>
+            <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #acept let-c="close" let-d="dismiss">
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="opt">
+        <div fxLayoutAlign="center center">
+            <h1>{{pro.titulo | uppercase}}</h1>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayoutAlign="center center">
+            <h4 style="color:rgb(61, 29, 29)">Estas seguro de aceptar este proyecto?</h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="accept(pro.codpro)">Aceptar</button>
+            <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #recha let-c="close" let-d="dismiss">
+    <div *ngFor="let pro of datos" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" class="opt">
+        <div fxLayoutAlign;="center center">
+            <h1>{{pro.titulo | uppercase}}</h1>
+        </div>
+        <mat-divider style="width: 100%;"></mat-divider>
+        <div fxLayoutAlign="center center">
+            <h4 style="color:rgb(61, 29, 29)">Estas seguro de rechazar este proyecto?</h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="rech(pro.codpro)">Eliminar</button>
+            <button mat-raised-button color="warn" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>

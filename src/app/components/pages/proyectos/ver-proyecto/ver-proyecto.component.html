@@ -1,0 +1,91 @@
+<div class="main__container">
+ <section class="section section1" *ngFor="let pro of proyecto">
+  <div class="sub__section sub__section1">
+    <div class="internal__sup_section">
+      <h1 class="title__grant">{{pro.titulo | uppercase}}</h1>
+      <div class="sup__section__division">
+        <div class="text__options">
+          <h5 class="text__duration">{{diasDuracion }} {{diasDuracion>0?'dias':'dia'}}</h5>
+          <h5>Duracion</h5>
+        </div>
+        <div class="text__options">
+          <h5 class="text__duration">{{diasPlanEje }} {{diasPlanEje>0?'dias':'dia'}}</h5>
+          <h5>Duracion</h5>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="internal_section">
+      <div class="status__grant">
+        <h2 class="h2__text">ESTADO:</h2>
+        <h3 class="status">{{tituloact | uppercase}}</h3>
+      </div>
+      <div class="rol__grant">
+        <h2 class="h2__text">ROL EN EL PROYECTO</h2>
+        <h3 class="rol__text">
+          {{rol | uppercase}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="sub__section sub__section2">
+      <button mat-raised-button class="bttn" [routerLink]="['/ingresos', pro.codpro]"
+        routerLinkActive="router-link-active">Ingresos del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/egresos', pro.codpro]"
+        routerLinkActive="router-link-active">Egresos del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/equipos/verEquipo', pro.codpro]"
+        routerLinkActive="router-link-active">Equipo del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/tareas', pro.codpro]"
+        routerLinkActive="router-link-active">Tareas del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/archivos', pro.codpro]"
+        routerLinkActive="router-link-active">Archivos del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/beneficiarios', pro.codpro]"
+        routerLinkActive="router-link-active">Beneficiarios del proyecto</button>
+      <button mat-raised-button class="bttn" [routerLink]="['/observaciones', pro.codpro]"
+        routerLinkActive="router-link-active">Observaciones de los miembros</button>
+      <button mat-raised-button class="bttn" (click)="informeProyecto()">Informe del proyecto</button>
+      <button mat-raised-button class="bttn" (click)="informeEjecucion()">Informe de ejecucion</button>
+  </div>
+ </section>
+ <section class="section section2">
+  <div class="sub__section sub__section3">
+    <div class="circulo" fxLayoutAlign="center center" fxLayout="column">
+      <div>{{totalt}}</div>
+      <div>Tareas</div>
+    </div>
+    <div class="circulo" fxLayoutAlign="center center" fxLayout="column">
+      <div>{{totalc}}</div>
+      <div>Completadas</div>
+    </div>
+    <div class="circulo" fxLayoutAlign="center center" fxLayout="column">
+      <div>{{totala}}</div>
+      <div>Pendientes</div>
+    </div>
+  </div>
+  <div class="sub__section sub__section4">
+    <div class="circulo2" fxLayoutAlign="center center" fxLayout="column">
+      <ng-container *ngIf="itotal; else itotals">
+        <div>{{itotal | number:'0.1-2'}} Bs</div>
+      </ng-container>
+      <ng-template #itotals>
+        <div>0.0</div>
+      </ng-template>
+      <div>Ingresos</div>
+    </div>
+    <div class="circulo2" fxLayoutAlign="center center" fxLayout="column">
+      <ng-container *ngIf="etotal; else etotals">
+        <div>{{etotal | number:'0.1-2'}} Bs</div>
+      </ng-container>
+      <ng-template #etotals>
+        <div>0.0</div>
+      </ng-template>
+
+      <div>Egresos</div>
+    </div>
+    <div class="circulo2" fxLayoutAlign="center center" fxLayout="column">
+      <div>{{total | number:'0.1-2'}} Bs</div>
+      <div>Saldo</div>
+    </div>
+  </div>
+ </section>
+</div>

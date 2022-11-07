@@ -1,0 +1,158 @@
+<mat-drawer-container class="sidenav__container" autosize style="background-image: url('./assets/imagenes/fondo4.jpg');">
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <mat-list fxLayout="column">
+        <button mat-button [matMenuTriggerFor]="personas" *ngIf="logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="btn__menu">Personas</button>
+        <mat-menu #personas="matMenu">
+            <button mat-menu-item [routerLink]="['/personas']" routerLinkActive="router-link-active" [disabled]="estado==false">Personas</button>
+            <button mat-menu-item [routerLink]="['/personal']" routerLinkActive="router-link-active" [disabled]="estado==false">Personal</button>
+            <button mat-menu-item [routerLink]="['/usuarios']" routerLinkActive="router-link-active" [disabled]="estado==false">Usuarios</button>
+            <button mat-menu-item [routerLink]="['/beneficiarios']" routerLinkActive="router-link-active" [disabled]="estado==false">Beneficiarios</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="proyectos" *ngIf=" !logService.islogged()" [disabled]="estado==false" class="btn__menu">Proyectos</button>
+        <mat-menu #proyectos="matMenu">
+            <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="proyectosa" *ngIf=" logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="btn__menu">Proyectos</button>
+        <mat-menu #proyectosa="matMenu">
+            <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="proyectoss" *ngIf=" logService.islogged() && rol=='Personal'" [disabled]="estado==false" class="btn__menu">Proyectos</button>
+        <mat-menu #proyectoss="matMenu">
+            <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+            <button mat-menu-item [routerLink]="['/equipos']" routerLinkActive="router-link-active" [disabled]="estado==false">Equipos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="proyectoso" *ngIf=" logService.islogged() && rol=='Observador'" [disabled]="estado==false" class="btn__menu">Proyectos</button>
+        <mat-menu #proyectoso="matMenu">
+            <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+            <button mat-menu-item [routerLink]="['/equipos']" routerLinkActive="router-link-active" [disabled]="estado==false">Equipos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="proyectosu" *ngIf=" logService.islogged() && rol=='Usuario'" [disabled]="estado==false" class="btn__menu">Proyectos</button>
+        <mat-menu #proyectosu="matMenu">
+            <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="instituciones" *ngIf=" logService.islogged() && rol!='Usuario'" [disabled]="estado==false" class="btn__menu">Instituciones</button>
+        <mat-menu #instituciones="matMenu">
+            <button mat-menu-item [routerLink]="['/instituciones']" routerLinkActive="router-link-active" [disabled]="estado==false">Instituciones</button>
+            <button mat-menu-item [routerLink]="['/proveedores']" routerLinkActive="router-link-active" [disabled]="estado==false">Proveedores</button>
+            <button mat-menu-item [routerLink]="['/financiadores']" routerLinkActive="router-link-active" [disabled]="estado==false">Financiadores</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="administracion" *ngIf="logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="btn__menu">Administracion</button>
+        <mat-menu #administracion="matMenu">
+            <button mat-menu-item [routerLink]="['/roles']" routerLinkActive="router-link-active" [disabled]="estado==false">Roles</button>
+            <button mat-menu-item [routerLink]="['/productosServicios']" routerLinkActive="router-link-active" [disabled]="estado==false">Productos o Servicios</button>
+            <button mat-menu-item [routerLink]="['/tiposProyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Tipo de proyectos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="administracionO" *ngIf="logService.islogged() && rol=='Observador'" [disabled]="estado==false" class="btn__menu">Administracion</button>
+        <mat-menu #administracionO="matMenu">
+            <button mat-menu-item [routerLink]="['/productosServicios']" routerLinkActive="router-link-active" [disabled]="estado==false">Productos o
+Servicios</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="informesA" *ngIf=" logService.islogged() && rol=='Administrador'" class="btn__menu">Informes</button>
+        <mat-menu #informesA="matMenu">
+            <button mat-menu-item [routerLink]="['/informes/proyectos']" routerLinkActive="router-link-active">Proyectos</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="informesO" *ngIf=" logService.islogged() && rol=='Observador'" class="btn__menu">Informes</button>
+        <mat-menu #informesO="matMenu">
+            <button mat-menu-item [routerLink]="['/informes/proyectos']" routerLinkActive="router-link-active">Proyectos</button>
+        </mat-menu>
+    </mat-list>
+  </mat-drawer>
+  <div class="app__container">
+      <div class="example-sidenav-content">
+          <mat-toolbar class="navbar__container">
+        <div class="logo__container">
+            <button mat-icon-button class="menu__icon" (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <a [routerLink]="['/proyectos']" routerLinkActive="router-link-active">
+                <img src="./assets/imagenes/logocba.png" alt="" class="navbar__picture">
+            </a>
+        </div>
+        <div class="menu__container">
+            <mat-list fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="personas" *ngIf="logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="main__menu">Personas</button>
+                <mat-menu #personas="matMenu">
+                    <button mat-menu-item [routerLink]="['/personas']" routerLinkActive="router-link-active" [disabled]="estado==false">Personas</button>
+                    <button mat-menu-item [routerLink]="['/personal']" routerLinkActive="router-link-active" [disabled]="estado==false">Personal</button>
+                    <button mat-menu-item [routerLink]="['/usuarios']" routerLinkActive="router-link-active" [disabled]="estado==false">Usuarios</button>
+                    <button mat-menu-item [routerLink]="['/beneficiarios']" routerLinkActive="router-link-active" [disabled]="estado==false">Beneficiarios</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="proyectos" *ngIf=" !logService.islogged()" [disabled]="estado==false" class="main__menu">Proyectos</button>
+                <mat-menu #proyectos="matMenu">
+                    <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="proyectosa" *ngIf=" logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="main__menu">Proyectos</button>
+                <mat-menu #proyectosa="matMenu">
+                    <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="proyectoss" *ngIf=" logService.islogged() && rol=='Personal'" [disabled]="estado==false" class="main__menu">Proyectos</button>
+                <mat-menu #proyectoss="matMenu">
+                    <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+                    <button mat-menu-item [routerLink]="['/equipos']" routerLinkActive="router-link-active" [disabled]="estado==false">Equipos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="proyectoso" *ngIf=" logService.islogged() && rol=='Observador'" [disabled]="estado==false" class="main__menu">Proyectos</button>
+                <mat-menu #proyectoso="matMenu">
+                    <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+                    <button mat-menu-item [routerLink]="['/equipos']" routerLinkActive="router-link-active" [disabled]="estado==false">Equipos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="proyectosu" *ngIf=" logService.islogged() && rol=='Usuario'" [disabled]="estado==false" class="main__menu">Proyectos</button>
+                <mat-menu #proyectosu="matMenu">
+                    <button mat-menu-item [routerLink]="['/proyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Proyectos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="instituciones" *ngIf=" logService.islogged() && rol!='Usuario'" [disabled]="estado==false" class="main__menu">Instituciones</button>
+                <mat-menu #instituciones="matMenu">
+                    <button mat-menu-item [routerLink]="['/instituciones']" routerLinkActive="router-link-active" [disabled]="estado==false">Instituciones</button>
+                    <button mat-menu-item [routerLink]="['/proveedores']" routerLinkActive="router-link-active" [disabled]="estado==false">Proveedores</button>
+                    <button mat-menu-item [routerLink]="['/financiadores']" routerLinkActive="router-link-active" [disabled]="estado==false">Financiadores</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="administracion" *ngIf="logService.islogged() && rol=='Administrador'" [disabled]="estado==false" class="main__menu">Administracion</button>
+                <mat-menu #administracion="matMenu">
+                    <button mat-menu-item [routerLink]="['/roles']" routerLinkActive="router-link-active" [disabled]="estado==false">Roles</button>
+                    <button mat-menu-item [routerLink]="['/productosServicios']" routerLinkActive="router-link-active" [disabled]="estado==false">Productos o Servicios</button>
+                    <button mat-menu-item [routerLink]="['/tiposProyectos']" routerLinkActive="router-link-active" [disabled]="estado==false">Tipo de proyectos</button>
+                </mat-menu>
+                <button mat-button [matMenuTriggerFor]="administracionO" *ngIf="logService.islogged() && rol=='Observador'" [disabled]="estado==false" class="main__menu">Administracion</button>
+                <mat-menu #administracionO="matMenu">
+                    <button mat-menu-item [routerLink]="['/productosServicios']" routerLinkActive="router-link-active" [disabled]="estado==false">Productos o
+                        Servicios</button>
+                    </mat-menu>
+                    <button mat-button [matMenuTriggerFor]="informesA" *ngIf=" logService.islogged() && rol=='Administrador'" class="main__menu">Informes</button>
+                    <mat-menu #informesA="matMenu">
+                        <button mat-menu-item [routerLink]="['/informes/proyectos']" routerLinkActive="router-link-active">Proyectos</button>
+                    </mat-menu>
+                    <button mat-button [matMenuTriggerFor]="informesO" *ngIf=" logService.islogged() && rol=='Observador'" class="main__menu">Informes</button>
+                    <mat-menu #informesO="matMenu">
+                        <button mat-menu-item [routerLink]="['/informes/proyectos']" routerLinkActive="router-link-active">Proyectos</button>
+                    </mat-menu>
+                </mat-list>
+            </div>
+            <div class="button_container">
+                <button mat-flat-button style="background-color: rgba(114, 146, 189, 0.658); color: white;" [matMenuTriggerFor]="menu">
+                    <ng-container *ngIf="logService.islogged(); else usuario">
+                        <app-conectado class="float-left"></app-conectado>
+                    </ng-container>
+                    <ng-template #usuario>
+                        <span>Invitado</span>
+                    </ng-template>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item class="menuds" *ngIf="logService.islogged()" [routerLink]="['/cuenta', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mi Cuenta</button>
+                    <button mat-menu-item class="menuds" *ngIf="logService.islogged()" style="color: brown;" (click)="cerrarSession()">Cerrar sesion</button>
+                    <button mat-menu-item class="menuds" *ngIf="!logService.islogged()" style="color: brown; " (click)="iniciarSession() ">Iniciar sesion</button>
+                    <mat-divider *ngIf="logService.islogged()"></mat-divider>
+                    <button mat-menu-item class="menuds " *ngIf="logService.islogged() && rol!='Usuario'" [routerLink]="['/proyectos', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mis proyectos</button>
+                    <button mat-menu-item class="menuds " *ngIf="logService.islogged()" [routerLink]="['/beneficiarios/misPostulaciones', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mis postulaciones</button>
+                    <button mat-menu-item class="menuds " *ngIf="logService.islogged() && rol!='Usuario'" [routerLink]="['/equipos', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mis equipos</button>
+                    <button mat-menu-item class="menuds " *ngIf="logService.islogged() && rol!='Usuario'" [routerLink]="['tareas/misTareas', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mis tareas</button>
+                    <mat-divider *ngIf="logService.islogged()"></mat-divider>
+                    <button mat-menu-item class="menuds" *ngIf="logService.islogged() && rol!='Usuario'" [routerLink]="['/observaciones/misObservaciones', codper]" routerLinkActive="router-link-active" [disabled]="estado==false">Mis
+                  observaciones</button>
+                        </mat-menu>
+                    </div>
+                </mat-toolbar>
+            </div>
+            <div class="contenido">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+</mat-drawer-container>

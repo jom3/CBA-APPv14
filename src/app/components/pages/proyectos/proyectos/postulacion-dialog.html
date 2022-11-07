@@ -1,0 +1,22 @@
+<div *ngFor="let pro of proyectos" class="diag" fxLayout="column" fxLayoutGap="5px">
+    <div fxLayoutAlign="center center">
+        <h3>
+            <strong>
+            {{pro.titulo | uppercase}}
+          </strong>
+        </h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div style="text-align: justify;">
+        <p>Estas seguro de postularte a este proyecto que esta a cargo de:</p>
+        <div fxLayoutAlign="center center">
+            <h4 style="color: rgba(255, 0, 0, 0.733);">{{pro.nombre | titlecase}} {{pro.ap | titlecase}} {{pro.am | titlecase}}</h4>
+        </div>
+        <p>Una vez al postular en este proyecto podras consultar el opción de "Mis postulaciones" para ver si eres aceptado o rechazado </p>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayoutAlign="center center" fxLayoutGap="30px">
+        <button mat-raised-button color="primary" mat-dialog-close (click)="postular(pro.codpro)">Postular</button>
+        <button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
+    </div>
+</div>

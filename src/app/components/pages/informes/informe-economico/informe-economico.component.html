@@ -1,0 +1,110 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Informe economico</li>
+    <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+</ol>
+<button mat-raised-button color="primary" (click)="downloadPDF()" fxFlexAlign="center">Descargar informe</button>
+<div class="container mt-5 fs-6 bgg" id="htmlDate">
+    <div id="htmlData" *ngFor="let pr of proyecto">
+        <div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <p>Fundación Educativa Cultural</p>
+                    <hr>
+                    <hr>
+                </div>
+                <img src="./assets/imagenes/logo_cbaa.png" alt="" style="width: 10%;">
+                <div>
+                    <p>Centro Boliviano Americano</p>
+                    <hr>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-center">INFORME ECONOMICO DEL PROYECTO</h1>
+        <h2 class="text-center"><strong>{{pr.titulo | uppercase}}</strong></h2>
+        <table style="width: 100%; border: 1px solid rgb(102, 99, 99);" class="text-center">
+            <thead style="border: 1px solid rgb(102, 99, 99);">
+                <tr>
+                    <th scope="col">INGRESANTE</th>
+                    <th scope="col">RETIRANTE</th>
+                    <th scope="col">COMPROBANTE</th>
+                    <th scope="col">MONTO INGRESADO</th>
+                    <th scope="col">MONTO RETIRADO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let in of ingresos">
+                    <td scope="row">{{in.nombre | uppercase}}</td>
+                    <td scope="row"></td>
+                    <td scope="row">{{in.cingreso}}</td>
+                    <ng-container *ngIf="in.idivisa=='Bolivianos'; else elseIng">
+                        <td scope="row">{{in.ingreso| number:'0.1-2'}} Bs</td>
+                    </ng-container>
+                    <ng-template #elseIng>
+                        <td scope="row">{{in.ingreso| number:'0.1-2'}} $</td>
+                    </ng-template>
+                    <td scope="row"></td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr *ngFor="let eg of egresos">
+                    <td scope="row"></td>
+                    <td scope="row">{{eg.nombre | uppercase}} {{eg.ap | uppercase}} {{eg.am | uppercase}}</td>
+                    <td scope="row">{{eg.cegreso}}</td>
+                    <td scope="row"></td>
+                    <ng-container *ngIf="eg.edivisa=='Bolivianos'; else elseEgre">
+                        <td scope="row">{{eg.retiro| number:'0.1-2'}} Bs</td>
+                    </ng-container>
+                    <ng-template #elseEgre>
+                        <td scope="row">{{eg.retiro| number:'0.1-2'}} $</td>
+                    </ng-template>
+                </tr>
+            </tbody>
+            <tfoot style="border: 1px solid rgb(102, 99, 99);">
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>INGRESOS (BS)</strong></td>
+                    <td><strong>INGRESOS ($)</strong></td>
+                    <td><strong>EGRESOS (BS)</strong></td>
+                    <td><strong>EGRESOS ($)</strong></td>
+                    <td><strong>SALDO</strong></td>
+                </tr>
+                <tr>
+                    <td>{{totalibs | number:'0.1-2'}} Bs</td>
+                    <td>{{totalids | number:'0.1-2'}} $</td>
+                    <td>{{totalebs | number:'0.1-2'}} Bs</td>
+                    <td>{{totaleds | number:'0.1-2'}} $</td>
+                    <td>{{todos | number:'0.1-2'}} Bs</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div class="float-left" *ngFor="let per of persona">
+            <p>Usuario: {{per.nombre | titlecase}} {{per.ap | titlecase}} {{per.am | titlecase}}</p>
+        </div>
+        <div class="float-right">
+            <p>{{generado | date:'medium'}}</p>
+        </div>
+        <br>
+        <div style="position: relative; bottom:5px">
+            <hr>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <p>Telf. 591(4)66-48626</p>
+                </div>
+                <div>
+                    <p>www.cba.org.bo</p>
+                </div>
+                <div>
+                    <p>Dirección: La Madrid #732 entre O'Connor y Ejército</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto" >
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Equipos</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+  <ng-container *ngIf="codeq; else elsecodeq">
+    <li class="breadcrumb-item active" aria-current="page">Registrar nuevo miembro</li>
+  </ng-container>
+  <ng-template #elsecodeq>
+    <li class="breadcrumb-item active" aria-current="page">Modificar miembro</li>
+  </ng-template>
+  <li class="breadcrumb-item active" aria-current="page" *ngFor="let per of perso">{{per.nombre | titlecase}} {{per.ap | titlecase}} {{per.am | titlecase}}</li>
+</ol>
+<form [formGroup]="mmForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 100%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codmiem; else elseTemplate">
+            <h3>REGISTRAR NUEVO MIEMBRO</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR MIEMBRO</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Personal:</mat-label>
+            <mat-select formControlName="codper" name="pel" [matTooltipHideDelay]="10000" [disabled]="codmiem" matTooltip="{{getErrorMessage ('codper')}}" required>
+                <mat-option *ngFor="let pel of personal" [value]="pel.codper">
+                    {{pel.nombre | titlecase}} {{pel.ap | titlecase}} {{pel.am | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Rol del miembro:</mat-label>
+            <mat-select formControlName="codrol" name="rol" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codrol')}}" required>
+                <mat-option *ngFor="let rol of roles" [value]="rol.codrol">
+                    {{rol.nombre | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" [disabled]="!mmForm.valid" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

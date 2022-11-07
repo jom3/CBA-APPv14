@@ -1,0 +1,31 @@
+.ver__persona{
+  width: 100%;
+  margin-top: 30px;
+}
+.card {
+    width: 300px;
+    background: linear-gradient(to right, rgb(162, 203, 250), rgb(172, 170, 170));
+}
+.breadcrumb{
+  background: linear-gradient(to right, rgb(162, 203, 250), rgb(172, 170, 170));
+  width: 400px;
+}
+.img__persona{
+  size-adjust: cover;
+}
+.bold{
+  font-weight: 800;
+}
+p{
+  font-size: 1rem;
+}
+.btn__close{
+  border: 1px solid rgba(0, 0, 0, 0.39) ;
+  background-color: rgba(0, 0, 255, 0.705);
+  color: white;
+}
+@media only screen and (max-width: 900px) {
+  .breadcrumb{
+    display: none;
+  }
+}

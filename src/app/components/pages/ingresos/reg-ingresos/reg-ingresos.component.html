@@ -1,0 +1,51 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto" >
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="volv()">Ingresos</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+  <ng-container *ngIf="coding; else elsecoding">
+    <li class="breadcrumb-item active" aria-current="page">Modificar Ingreso</li>
+  </ng-container>
+  <ng-template #elsecoding>
+    <li class="breadcrumb-item active" aria-current="page">Nuevo Ingreso</li>
+  </ng-template>
+</ol>
+<form [formGroup]="ingForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!coding; else elseTemplate">
+            <h3>REGISTRAR NUEVO INGRESO</h3>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h3>MODIFICAR INGRESO</h3>
+        </ng-template>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Financiador:</mat-label>
+            <mat-select formControlName="codf" name="fin" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codf')}}" required>
+                <mat-option *ngFor="let fin of financiadores" [value]="fin.codf">
+                    {{fin.nombre | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="5px" class="forms">
+            <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Monto a ingresar:</mat-label>
+                <input type="number" matInput formControlName="ingreso" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('ingreso')}}" required max="{{maxbs}}" min="{{min}}">
+                <mat-hint>disponible {{maxbs | number:'0.1-2'}}Bs - {{maxds | number:'0.1-2'}}$</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="40">
+                <mat-label>Divisa:</mat-label>
+                <mat-select matNativeControl formControlName="idivisa" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('idivisa')}}" required>
+                    <mat-option value="Bolivianos" selected>Bolivianos</mat-option>
+                    <mat-option value="Dolares">Dolares</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>comprobante del ingreso:</mat-label>
+            <input type="number" matInput formControlName="cingreso" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('cingreso')}}" required>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" [disabled]="!ingForm.valid" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

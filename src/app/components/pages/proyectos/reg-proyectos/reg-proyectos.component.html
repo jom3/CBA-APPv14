@@ -1,0 +1,135 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="cancelar()">Proyectos</a></li>
+    <ng-container *ngIf="codpro; else elsecodi">
+        <li class="breadcrumb-item active" aria-current="page">Modificar proyecto</li>
+    </ng-container>
+    <ng-template #elsecodi>
+        <li class="breadcrumb-item active" aria-current="page">Nuevo proyecto</li>
+    </ng-template>
+</ol>
+<form [formGroup]="proyForm" fxLayout="column" [style.fontSize.px]="12.5" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div style="width: 450px; height: 520px;" fxLayoutAlign="center center" fxLayout="column" class="bgg">
+        <ng-container *ngIf="!codpro; else pro">
+            <h3 class="mt-5 tit">REGISTRAR PROYECTO</h3>
+        </ng-container>
+        <ng-template #pro>
+            <h3 class="mt-5 tit">MODIFICAR PROYECTO</h3>
+        </ng-template>
+        <mat-stepper style="background-color: transparent;">
+            <mat-step>
+                <ng-template matStepLabel>Principales</ng-template>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Titulo:</mat-label>
+                    <input matInput formControlName="titulo" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('titulo')}}" required>
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutGap="5px" class="forms">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Persona encargada:</mat-label>
+                        <mat-select formControlName="codper" name="per" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codper')}}" required>
+                            <mat-option *ngFor="let per of personal" [value]="per.codper">
+                                {{per.nombre | titlecase}} {{per.ap | titlecase}} {{per.am | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="40">
+                        <mat-label>Caracter:</mat-label>
+                        <mat-select matNativeControl formControlName="caracter" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('caracter')}}" required>
+                            <mat-option value="Publico">Publico</mat-option>
+                            <mat-option value="Privado">Privado</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Justificación:</mat-label>
+                    <textarea rows="8" matInput placeholder="Justificación del proyecto" formControlName="justificacion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('justificacion')}}" required></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Objectivo:</mat-label>
+                    <textarea rows="4" matInput placeholder="Objetivo del proyecto" formControlName="objetivo" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('objetivo')}}" required></textarea>
+                </mat-form-field>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Secundarios</ng-template>
+                <mat-form-field appearance="fill" class="forms" fxFlex>
+                    <mat-label>Institucion:</mat-label>
+                    <mat-select formControlName="codi" name="inst" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codi')}}">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let inst of instituciones" [value]="inst.codi">
+                            {{inst.nombre | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p>*si no existe una institucion asociada omitir la seleccion de una</p>
+                <div fxLayout="row" fxLayoutGap="5px" class="forms">
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Costo:</mat-label>
+                        <input type="number" matInput formControlName="costo_proyecto" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('costo_proyecto')}}" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="40">
+                        <mat-label>Divisa:</mat-label>
+                        <mat-select matNativeControl formControlName="divisa" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('divisa')}}" required>
+                            <mat-option value="Bolivianos">Bolivianos</mat-option>
+                            <mat-option value="Dolares">Dolares</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="10px" class="forms">
+                    <mat-form-field appearance="fill" fxFlex="49">
+                        <mat-label>Fecha Inicio:</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="finicio" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('finicio')}}" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="49">
+                        <mat-label>Fecha Ejecucion:</mat-label>
+                        <input matInput [matDatepicker]="picker3" formControlName="fejecucion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('ffin')}}" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Fecha Finalización:</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="ffin" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('ffin')}}" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Tipo de proyecto:</mat-label>
+                    <mat-select formControlName="codtipo" name="inst" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codtipo')}}">
+                        <mat-option *ngFor="let ti of tipos" [value]="ti.codtipo">
+                            {{ti.nombre | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Producto:</mat-label>
+                    <mat-select formControlName="codps" name="inst" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('codps')}}">
+                        <mat-option *ngFor="let ps of productosServicios" [value]="ps.codps">
+                            {{ps.nombre | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Finalizar</ng-template>
+                <p>
+                    <strong>
+                    Recuerde revisar cada dato ingresado
+                  </strong>
+                </p>
+                <mat-divider></mat-divider>
+                <strong>
+                  <p style="color: red;">Una vez registrado el proyecto, algunos datos no podran ser modificados a menos que sea solicitado a un administrador</p>
+                </strong>
+                <mat-divider></mat-divider>
+                <strong>
+                <p style="color: rgb(10, 10, 196);">Si en alguna opcion no esta el dato que necesita hable con un administrador</p>
+                </strong>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="100px">
+                    <button mat-raised-button color="primary" [disabled]="!proyForm.valid" (click)="guardar()">guardar</button>
+                    <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                </div>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</form>

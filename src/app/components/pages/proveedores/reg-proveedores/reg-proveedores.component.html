@@ -1,0 +1,32 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="cancelar()">Proveedores</a></li>
+  <ng-container *ngIf="codprov; else elsecodi">
+    <li class="breadcrumb-item active" aria-current="page">Modificar proveedor</li>
+  </ng-container>
+  <ng-template #elsecodi>
+    <li class="breadcrumb-item active" aria-current="page">Nuevo proveedor</li>
+  </ng-template>
+</ol>
+<form [formGroup]="provForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codprov; else elseTemplate">
+            <h2>REGISTRAR PROVEEDOR</h2>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h2>MODIFICAR PROVEEDOR</h2>
+        </ng-template>
+
+        <mat-form-field appearance="fill" style="width: 300px;">
+            <mat-label>Institucion</mat-label>
+            <mat-select formControlName="codi" name="ins">
+                <mat-option *ngFor="let ins of instituciones" [value]="ins.codi">
+                    {{ins.nombre | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!provForm.valid">guardar</button>
+            <button mat-raised-button color="warn" routerLinkActive="router-link-active" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

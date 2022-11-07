@@ -1,0 +1,34 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="container">
+    <mat-card class="bgg">
+        <mat-card-header fxLayoutAlign="center center">
+            <h1>INICIAR SESIÓN</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="logForm" fxLayout="column" class="forms">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Usuario:</mat-label>
+                    <input matInput placeholder="Usuario" formControlName="usuario" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('usuario')}}" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Contraseña:</mat-label>
+                    <input matInput type="password" placeholder="Contraseña" formControlName="contraseña" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('contraseña')}}" required>
+                </mat-form-field>
+                <br>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
+                    <button mat-raised-button color="primary" [disabled]="!logForm.valid" (click)="iniciarSesion()">INGRESAR</button>
+                </div>
+            </form>
+            <br>
+            <mat-divider></mat-divider>
+            <div fxLayout="row" fxLayoutGap="1px" fxLayoutAlign="center center">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-button style="color: rgb(51, 51, 236);" [routerLink]="['/login/registrarUsuario']" routerLinkActive="router-link-active">Crear cuenta nueva</button>
+                </div>
+                |
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button mat-button style="color: rgb(51, 51, 236);" [routerLink]="['/login/recuperar']" routerLinkActive="router-link-active">Olvidaste tu contraseña?</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

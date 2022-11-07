@@ -1,0 +1,14 @@
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+    width: 420px;
+    height: 280px;
+}
+
+.forms {
+    width: 400px;
+}
+.breadcrumb{
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+  width: 500px;
+}

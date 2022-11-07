@@ -1,0 +1,27 @@
+.forms {
+    width: 450px;
+}
+
+.formulario {
+    margin-top: 25px;
+    width: 100%;
+    height: 80%;
+}
+
+.bgform {
+    background-color: rgba(68, 105, 105, 0.253);
+    border-radius: 20px;
+}
+
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+    height: 500px;
+    width: 500px;
+    padding: 10px;
+}
+
+.breadcrumb {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    width: 300px;
+}

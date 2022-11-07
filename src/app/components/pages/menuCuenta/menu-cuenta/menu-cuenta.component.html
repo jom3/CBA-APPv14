@@ -1,0 +1,42 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="menu">
+    <div style="width: 80%;" fxLayoutAlign="center center">
+        <h1>MI CUENTA</h1>
+    </div>
+    <hr style="width: 50%;">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div>
+            <a (click)="seguridad()">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"><img src="./assets/imagenes/seguro.png" alt="" class="imag"></div>
+                        <mat-card-title>Configuración</mat-card-title>
+                        <mat-card-subtitle>Seguridad</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image class="imagen" src="./assets/imagenes/password_image.png" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <p>
+                            En esta opción se podra realizar la modificación de tu contraseña, recuerda tener la contraseña anterior.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </a>
+        </div>
+        <div>
+            <a (click)="datosPersonales()">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"><img src="./assets/imagenes/edit_cuenta.png" alt="" class="imag"></div>
+                        <mat-card-title>Cuenta</mat-card-title>
+                        <mat-card-subtitle>Datos personales</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image class="imagen" src="./assets/imagenes/edit_user.png" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <p>
+                            En esta opción podras modificar tu perfil de usuario siempre que lo necesite, hay datos personales que solo podran ser modificado por un administrador.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+/* .forms {
+  width: 98%;
+  height: 98%;
+  background-color: red;
+} */
+/*
+.bgg {
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+  border-radius: 30px;
+}
+
+.styles {
+  background: rgb(136, 172, 201);
+  color: black;
+  text-decoration: none;
+  width: 40%;
+}
+
+.car {
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.459), rgba(187, 187, 187, 0.356));
+  border-radius: 30px;
+}
+
+.circulo {
+  width: 30%;
+  height: 55%;
+  border-radius: 100px;
+  background: linear-gradient(to top, #E6DADA, #ffaa48);
+}
+
+.circulo2 {
+  width: 30%;
+  height: 55%;
+  border-radius: 100px;
+  background: linear-gradient(to top, #ff0000ec, #E9E4F0);
+}
+
+.circulo3 {
+  width: 30%;
+  height: 55%;
+  border-radius: 100px;
+  background: linear-gradient(to top, #165da0af, #ccc6d4);
+}
+
+.bttn {
+  background: #cc4242a1;
+  box-shadow: 2px -2px rgba(32, 31, 31, 0.514);
+  margin: 10px
+} */
+
+.main__container {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.section {
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  min-width: 49%;
+  max-width: 49%;
+  background-color: rgba(255, 255, 255, 0.245);
+}
+.sub__section{
+  width: 100%;
+  height: 100%;
+  border: 1px solid crimson;
+}
+.sub__section2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sub__section1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.internal_section{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.title__grant{
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+}
+hr{
+  width: 90%;
+  color: white;
+}
+.h2__text{
+  color: white;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.bttn{
+  background-color: rgba(165, 233, 225, 0.616);
+}
+.status{
+  color: rgb(181, 224, 143);
+  font-weight: 400;
+}
+.rol__text{
+  color: rgb(122, 214, 205);
+  text-align: center;
+}
+.sup__section__division{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.text__options{
+  color: rgb(241, 202, 29);
+  text-align: center;
+}
+h5{
+  font-size: 1.2rem;
+}
+.text__duration{
+  border-bottom: 1px solid white;
+}
+@media only screen and (max-width: 900px) {
+  .section2 {
+    display: none;
+  }
+  .section {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}

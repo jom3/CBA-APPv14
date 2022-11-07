@@ -1,0 +1,50 @@
+<div class="container mt-5 fs-6 bgg">
+    <h1 class="text-center">ADMINISTRAR PERSONAL</h1>
+    <mat-form-field>
+        <input matInput placeholder="placeholder" name="filt" placeholder="buscar..." style="width: 300px;" [(ngModel)]="filtroPersonal">
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="float-right" (click)="registrarNuevo()">
+      Añadir
+    <mat-icon>add</mat-icon>
+    </button>
+    <table class="table table-striped text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th scope="col" fxHide.xs>#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido Paterno</th>
+                <th scope="col">Apellido Materno</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ver mas</th>
+                <th scope="col">Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pel of personales | personalFiltro:filtroPersonal | paginate: { itemsPerPage: 4, currentPage: p }; index as i">
+                <th scope="row" fxHide.xs>{{ i + 1 }}</th>
+                <td>{{pel.nombre | titlecase}}</td>
+                <td>{{pel.ap | titlecase}}</td>
+                <td>{{pel.am | titlecase}}</td>
+                <td>{{pel.nomrol | titlecase}}</td>
+                <td>
+                    <div *ngIf="pel.estado!=0; else elseTemplate">
+                        <img src="./assets/imagenes/act.png " alt="none ">
+                    </div>
+                    <ng-template #elseTemplate>
+                        <img src="./assets/imagenes/inac.png " alt="none ">
+                    </ng-template>
+                </td>
+                <td>
+                    <a href="javascript:void(0) "><img src="./assets/imagenes/eye_black.png " alt=" " [routerLink]="[ '/personal/verPersonal',pel.codper] " routerLinkActive="router-link-active "></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0) "><img src="./assets/imagenes/edit_black.png " alt=" " [routerLink]="[ '/personal/modificarPersonal',pel.codper] " routerLinkActive="router-link-active "></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayoutAlign="center ">
+        <pagination-controls (pageChange)="p=$event "></pagination-controls>
+    </div>
+</div>

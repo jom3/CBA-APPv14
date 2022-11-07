@@ -1,0 +1,84 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="volver()">Ingresos</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Informe ingresos</li>
+    <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+</ol>
+<button mat-raised-button color="primary" (click)="downloadPDF()" fxFlexAlign="center">Descargar informe</button>
+<div class="container mt-1 fs-6" id="htmlDate">
+    <div class="bgg">
+        <div id="htmlData" *ngFor="let pr of proyecto">
+            <div>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <p>Fundación Educativa Cultural</p>
+                        <hr>
+                        <hr>
+                    </div>
+                    <img src="./assets/imagenes/logo_cbaa.png" alt="" style="width: 10%;">
+                    <div>
+                        <p>Centro Boliviano Americano</p>
+                        <hr>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <h1 class="text-center">INFORME DE INGRESOS DEL PROYECTO</h1>
+            <h2 class="text-center"><strong>{{pr.titulo | uppercase}}</strong></h2>
+            <table style="width: 100%; border: 1px solid black;" class="text-center">
+                <thead style="border: 1px solid black;">
+                    <tr>
+                        <th scope="col">Financiador</th>
+                        <th scope="col">Comprobante</th>
+                        <th scope="col">Fecha de ingreso</th>
+                        <th scope="col">Monto</th>
+                    </tr>
+                </thead>
+                <tbody style="border: 1px solid black;">
+                    <tr *ngFor="let in of ingresos">
+                        <td scope="row">{{in.nombre | uppercase}}</td>
+                        <td scope="row">{{in.cingreso}}</td>
+                        <td scope="row">{{in.fingreso | date}}</td>
+                        <td scope="row">{{in.ingreso| number:'0.1-2'}} {{in.idivisa}}</td>
+                    </tr>
+                </tbody>
+                <tfoot style="border: 1px solid black;">
+                    <tr>
+                        <td scope="row"><strong>TOTAL</strong></td>
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td scope="row"></td>
+                        <td scope="row">{{totalBs| number:'0.1-2'}} Bs</td>
+                        <td scope="row">{{totalDs| number:'0.1-2'}} $</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br>
+            <div class="float-left" *ngFor="let per of persona">
+                <p>Usuario: {{per.nombre | titlecase}} {{per.ap | titlecase}} {{per.am | titlecase}}</p>
+            </div>
+            <div class="float-right">
+                <p>{{generado | date:'medium'}}</p>
+            </div>
+            <br>
+            <div style="position: relative; bottom:5px">
+                <hr>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div>
+                        <p>Telf. 591(4)66-48626</p>
+                    </div>
+                    <div>
+                        <p>www.cba.org.bo</p>
+                    </div>
+                    <div>
+                        <p>Dirección: La Madrid #732 entre O'Connor y Ejército</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

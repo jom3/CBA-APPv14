@@ -1,0 +1,5 @@
+.card {
+    width: 300px;
+    /* background:  */
+    background: linear-gradient(to right, rgb(162, 203, 250), rgb(172, 170, 170));
+}

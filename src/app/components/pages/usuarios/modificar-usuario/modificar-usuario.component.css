@@ -1,0 +1,13 @@
+.card {
+    width: 100%;
+    border: none;
+    /* background:  */
+    background-color: transparent;
+}
+
+.bgg {
+  width: 350px;
+  height: 300px;
+  border-radius: 15px;
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.459), rgba(187, 187, 187, 0.356));
+}

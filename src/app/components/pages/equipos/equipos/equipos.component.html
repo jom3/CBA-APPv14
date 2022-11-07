@@ -1,0 +1,40 @@
+<div class="container mt-5 fs-6 bgg">
+    <h1 class="text-center">ADMINISTRAR EQUIPOS</h1>
+    <mat-form-field>
+        <input matInput name="filtroEquipos" placeholder="buscar..." style="width: 300px;" [(ngModel)]="filtroEquipos">
+    </mat-form-field>
+    <table class="table table-striped text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th scope="col" fxHide.xs>#</th>
+                <th scope="col">Equipo</th>
+                <th scope="col">Proyecto</th>
+                <th scope="col">Miembro</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ver mas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let eq of equipos | equiposFiltro:filtroEquipos | paginate: { itemsPerPage: 4, currentPage: p }; index as i">
+                <th scope="row" fxHide.xs>{{ i + 1 }}</th>
+                <td> Equipo {{eq.codeq}}</td>
+                <td>{{eq.titulo | titlecase}}</td>
+                <td>{{eq.nombre | titlecase}} {{eq.ap | titlecase}} {{eq.am | titlecase}}</td>
+                <td>
+                    <div *ngIf="eq.estado!=0; else elseTemplate">
+                        <img src="./assets/imagenes/act.png " alt="none ">
+                    </div>
+                    <ng-template #elseTemplate>
+                        <img src="./assets/imagenes/inac.png " alt="none ">
+                    </ng-template>
+                </td>
+                <td>
+                    <a href="javascript:void(0) "><img src="./assets/imagenes/eye_black.png " alt=" " [routerLink]="['/equipos/verEquipo', eq.codeq]" routerLinkActive="router-link-active"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayoutAlign="center ">
+        <pagination-controls (pageChange)="p=$event "></pagination-controls>
+    </div>
+</div>

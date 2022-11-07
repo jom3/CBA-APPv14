@@ -1,0 +1,37 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto" >
+  <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0)" (click)="cancelar()">Archivos</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+  <ng-container *ngIf="codarc; else elsecoda">
+    <li class="breadcrumb-item active" aria-current="page">Modificar Archivo</li>
+  </ng-container>
+  <ng-template #elsecoda>
+    <li class="breadcrumb-item active" aria-current="page">Nuevo Archivo</li>
+  </ng-template>
+</ol>
+<form [formGroup]="arcForm" fxLayout="column" fxLayoutAlign="center center" style=" width: 100%; height: 80%;">
+    <div fxLayout="column" fxLayoutAlign="center center" class="bgg">
+        <ng-container *ngIf="!codarc; else titulo">
+            <h1>Registrar archivo</h1>
+        </ng-container>
+        <ng-template #titulo>
+            <h1>Modificar archivo</h1>
+        </ng-template>
+
+        <div class="input-group mb-3 forms">
+            <input class="form-control" type="file" (change)="selectArchivo($event)" formControlName="archivo" [hidden]="codarc" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('archivo')}}" name="archivo">
+        </div>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Nombre del archivo:</mat-label>
+            <input matInput formControlName="nombre" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('nombre')}}" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="forms">
+            <mat-label>Descripcion del archivo:</mat-label>
+            <textarea matInput placeholder="descripcion del proveedor" formControlName="descripcion" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('descripcion')}}"></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="100px">
+            <button mat-raised-button color="primary" [disabled]="!arcForm.valid" (click)="guardar()">guardar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+</form>

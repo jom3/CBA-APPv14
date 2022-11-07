@@ -1,0 +1,90 @@
+<ol class="breadcrumb" *ngFor="let pro of proyecto">
+    <li class="breadcrumb-item"><a href="javascript:void(0)" (click)="verProyecto()">Proyecto</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Ingresos</li>
+    <li class="breadcrumb-item active" aria-current="page">{{pro.titulo}}</li>
+</ol>
+<div class="container mt-3 fs-6 bgg">
+    <div *ngFor="let pro of proyecto" fxLayoutGap="10px">
+        <h1 class="text-center">ADMINISTRAR INGRESOS</h1>
+        <h1 class="text-center">{{pro.titulo}}</h1>
+        <div fxLayout="column" fxLayoutGap="10px" style="width: 100%;" fxLayoutAlign="center center">
+            <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                <button mat-raised-button style="background-color: rgba(54, 104, 150, 0.486); color: black;" [hidden]="!codpro" disabled>
+              Costo del proyecto: {{dolares}}$ - {{bolivianos | number:'0.1-2'}}Bs
+            </button>
+                <button mat-raised-button style="background-color: rgba(54, 104, 150, 0.486); color: black;" [hidden]="!codpro" disabled>
+              Ingresos actuales: {{totalDs | number:'0.1-2'}}$ - {{totalBs | number:'0.1-2'}}Bs
+            </button>
+            </div>
+        </div>
+        <div>
+            <mat-form-field>
+                <input matInput name="filtroIngresos" placeholder="buscar..." style="width: 300px;" [(ngModel)]="filtroIngresos">
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutGap="5px" class="float-right mt-2">
+                <button mat-raised-button color="primary" [hidden]="!codpro" (click)="verInforme()" *ngIf="pro.estado==3 || pro.estado==4 || pro.estado==5">
+              Ver informe
+            </button>
+                <button mat-raised-button color="primary" [hidden]="!codpro" (click)="registrarNuevo() " *ngIf="pro.estado==5">
+              Añadir
+              <mat-icon>add</mat-icon>
+            </button>
+            </div>
+        </div>
+        <table class="table table-striped text-center ">
+            <thead class="bg-dark text-white ">
+                <tr>
+                    <th scope="col " fxHide.xs>#</th>
+                    <th scope="col ">Financiador</th>
+                    <th scope="col ">Monto ingreso</th>
+                    <th scope="col ">Divisa ingreso</th>
+                    <th scope="col ">Fecha de ingreso</th>
+                    <th scope="col ">Estado</th>
+                    <th scope="col " [hidden]="!codpro " *ngIf="pro.estado==5">Ver mas</th>
+                    <th scope="col " [hidden]="!codpro " *ngIf="pro.estado==5">Modificar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ing of ingresos | ingresosFiltro:filtroIngresos | paginate: { itemsPerPage: 4, currentPage: p }; index as i ">
+                    <th scope="row " fxHide.xs>{{ i + 1 }}</th>
+                    <td>{{ing.nombre | titlecase}}</td>
+                    <ng-container *ngIf="ing.idivisa=='Dolares'; else elseIdivisa">
+                        <td>{{ing.ingreso | number:'0.1-2'}} $</td>
+                    </ng-container>
+                    <ng-template #elseIdivisa>
+                        <td>{{ing.ingreso | number:'0.1-2'}} Bs</td>
+                    </ng-template>
+                    <td>{{ing.idivisa}}</td>
+                    <td>{{ing.fingreso | date}}</td>
+                    <td>
+                        <ng-container *ngIf="ing.estado==1; else inactivo ">
+                            <img src="./assets/imagenes/act.png " alt="none ">
+                        </ng-container>
+                        <ng-template #inactivo>
+                            <ng-container *ngIf="ing.estado==0; else bloqueado ">
+                                <img src="./assets/imagenes/inac.png " alt="none ">
+                            </ng-container>
+                            <ng-template #bloqueado>
+                                <img src="./assets/imagenes/bloqueo.png " alt="none ">
+                            </ng-template>
+                        </ng-template>
+                    </td>
+                    <td [hidden]="!codpro " *ngIf="pro.estado==5">
+                        <a href="javascript:void(0) "><img src="./assets/imagenes/eye_black.png " alt=" " [routerLink]="[ '/ingresos/verIngreso',ing.coding] " routerLinkActive="router-link-active "></a>
+                    </td>
+                    <td [hidden]="!codpro " *ngIf="pro.estado==5">
+                        <ng-container *ngIf="ing.estado==3 || !codpro; else mod ">
+                            <img src="./assets/imagenes/edit_black.png " alt=" " routerLinkActive="router-link-active ">
+                        </ng-container>
+                        <ng-template #mod>
+                            <a href="javascript:void(0) "><img src="./assets/imagenes/edit_black.png " alt=" " [routerLink]="[ '/ingresos/modificarIngreso',ing.coding] " routerLinkActive="router-link-active "></a>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div fxLayoutAlign="center ">
+            <pagination-controls (pageChange)="p=$event "></pagination-controls>
+        </div>
+    </div>
+</div>

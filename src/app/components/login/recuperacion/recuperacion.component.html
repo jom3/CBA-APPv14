@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="container">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <mat-card class="bgg">
+            <mat-card-header fxLayoutAlign="center center" style="margin-right: 25px;">
+                <h1 class="form__title">RECUPERAR CONTRASEÑA</h1>
+            </mat-card-header>
+            <mat-divider>
+            </mat-divider>
+            <br>
+            <mat-card-content>
+                <form [formGroup]="recForm" fxLayout="column">
+                    <mat-form-field appearance="fill" class="forms">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email" [matTooltipHideDelay]="10000" matTooltip="{{getErrorMessage ('email')}}" required>
+                    </mat-form-field>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
+                        <button mat-raised-button color="primary" [disabled]="!recForm.valid" (click)="recuperar()">RECUPERAR</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

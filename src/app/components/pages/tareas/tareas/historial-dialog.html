@@ -1,0 +1,12 @@
+<table class="table table-striped text-center">
+    <thead class="bg-dark text-white">
+        <th scope="col">Encargado</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Cambio</th>
+    </thead>
+    <tbody *ngFor="let hs of historial">
+        <td>{{hs.nombre}} {{hs.ap}} {{hs.am}}</td>
+        <td>{{hs.fecha | date:'medium'}}</td>
+        <td>{{hs.cambio}}</td>
+    </tbody>
+</table>

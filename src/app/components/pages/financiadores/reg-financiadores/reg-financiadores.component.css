@@ -1,0 +1,14 @@
+.bgg {
+    background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+    border-radius: 30px;
+    height: 200px;
+    width: 350px;
+}
+
+.tama {
+    width: 300px;
+}
+.breadcrumb{
+  background: linear-gradient(to right, rgba(183, 217, 255, 0.808), rgba(187, 187, 187, 0.658));
+  width: 500px;
+}

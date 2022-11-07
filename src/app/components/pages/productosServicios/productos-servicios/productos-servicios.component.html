@@ -1,0 +1,54 @@
+<div class="container mt-5 fs-6 bgg">
+    <h1 class="text-center">ADMINISTRAR PRODUCTOS O SERVICIOS</h1>
+    <mat-form-field>
+        <input matInput name="filtroPS" placeholder="buscar..." style="width: 300px;" [(ngModel)]="filtroPS">
+    </mat-form-field>
+    <button mat-raised-button *ngIf="rol=='Administrador'" color="primary" class="float-right" (click)="registrarNuevo()">
+      Añadir
+    <mat-icon>add</mat-icon>
+    </button>
+    <table class="table table-striped text-center">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th scope="col" fxHide.xs>#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Precio Total</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ver mas</th>
+                <th scope="col" *ngIf="rol=='Administrador'">Modificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ps of productosServicios | productosServiciosFiltro:filtroPS | paginate: { itemsPerPage: 4, currentPage: p }; index as i">
+                <th scope="row" fxHide.xs>{{ i + 1 }}</th>
+                <td>{{ ps.nombre | titlecase}}</td>
+                <td>{{ ps.tipops | titlecase}}</td>
+                <td>{{ ps.precio_total}} {{ ps.divisa | titlecase}}</td>
+                <td>
+                    <div *ngIf="ps.estado!=0; else elseTemplate">
+                        <img src="./assets/imagenes/act.png" alt="none">
+                    </div>
+                    <ng-template #elseTemplate>
+                        <img src="./assets/imagenes/inac.png" alt="none">
+                    </ng-template>
+                </td>
+                <td>
+                    <a href="javascript:void(0)"><img src="./assets/imagenes/eye_black.png" alt="" [routerLink]="['/productosServicios/verProductoServicio', ps.codps]" routerLinkActive="router-link-active"></a>
+                </td>
+                <td *ngIf="rol=='Administrador'">
+                    <ng-container *ngIf="ps.estado==1; else mod">
+                        <a href="javascript:void(0)"><img src="./assets/imagenes/edit_black.png" alt="" [routerLink]="['/productosServicios/modificarProductoServicio', ps.codps]" routerLinkActive="router-link-active"></a>
+                    </ng-container>
+                    <ng-template #mod>
+                        <a><img src="./assets/imagenes/edit_white.png" alt=""></a>
+                    </ng-template>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div fxLayoutAlign="center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>

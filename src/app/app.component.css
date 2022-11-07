@@ -1,0 +1,59 @@
+.sidenav__container{
+  height: 100%;
+}
+.app__container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.sidenav{
+  background-color: rgba(0, 0, 128, 0.3);
+}
+.btn__menu{
+  background-color: rgba(0, 0, 128, 0.534);
+  color: white;
+  margin: 1px 5px;
+}
+.navbar__container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 128, 0.9);
+  color: white;
+}
+.menu__container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.main__menu{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.274);
+  margin: 0 3px;
+}
+.logo__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu__icon{
+  display: none;
+  background-color: transparent;
+}
+.navbar__picture{
+  height: 65px;
+  background-size: cover    ;
+}
+.contenido{
+  height: 100%;
+}
+
+@media only screen and (max-width: 900px) {
+  .menu__icon{
+      display: block;
+  }
+  .menu__container{
+    display: none;
+  }
+}
